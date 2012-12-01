@@ -23,6 +23,16 @@
 			width: 30px;
 			margin: 25px auto;
 		}
+		
+		div#laser {
+			position: absolute;
+			display: none;
+			left: 0;
+			top: 0;
+			width: 10px;
+			height: 10px;
+			background-color: red;
+      }
     </style>
     <script src="tanks/tanks/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript">	
@@ -33,7 +43,7 @@
 		
         $( document ).keydown( function( event ){
           var keyCode = event.keyCode || event.which;
-          var keyMap = { left: 37, up: 38, right: 39, down: 40}
+          var keyMap = {left: 37, right: 39}
 			
           switch ( keyCode ) {
             case keyMap.left:
@@ -52,7 +62,7 @@
       $(function(){
         $( document ).keydown( function( event ){
           var keyCode = event.keyCode || event.which;
-          var keyMap = { left: 65, up: 87, right: 68, down: 83}
+          var keyMap = { left: 65, up: 87, right: 68, down: 83, space: 32}
 			
           switch ( keyCode ) {
             case keyMap.left:
@@ -78,6 +88,15 @@
                 top: '+=40'
               }, 100 );
             break;
+			
+			case keyMap.space:
+				var tankleft = $("#player1").offset().left;
+                var tanktop = $("#player1").offset().top; // LOL tanktop
+                var targetleft = 1000;
+                var targettop = 1000;
+                $("#laser").offset({left:tankleft + 50, top: tanktop + 50});
+                $("#laser").css("display", "block").animate({top: targettop, left: targetleft}, 500);
+            break;
 			}
 		});
 	});
@@ -89,5 +108,6 @@
 			<div id="player1_cannon"></div>
 		</div>
 	</div>
+	<div id="laser"></div>
   </body>
 </html>
