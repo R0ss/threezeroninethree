@@ -30,8 +30,18 @@
         height:70px;
         background-color: red; 
       }
+      
+      div#laser {
+        position: absolute;
+        display: none; 
+        left: 0;
+        top: 0;
+        width: 10px;
+        height: 10px;
+        background-color: red; 
+      }
     </style>
-    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="tanks/tanks/js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript">
       $(function(){
         var winWidth = $( document ).width();
@@ -67,9 +77,12 @@
             break;
 			
 			case keyMap.space:
-              $( "#laser" ).css( "display", "block" )
-                .animate( {top:10}, 800, function(){
-                     });
+			    var tankleft = $("#player1").offset().left;
+                var tanktop = $("#player1").offset().top; // LOL tanktop
+                var targetleft = 1000;
+                var targettop = 1000;
+                $("#laser").offset({left:tankleft + 50, top: tanktop + 50});
+                $("#laser").css("display", "block").animate({top: targettop, left: targetleft}, 500);
             break;
           }
         });
@@ -81,6 +94,7 @@
     <div id="player2" ></div>
     <div id="player1_shot"></div>
 	<div id="player2_shot"></div>
+	<div id="laser"></div>
   </body>
 </html>
 
