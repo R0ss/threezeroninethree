@@ -1,86 +1,95 @@
 <!DOCTYPE html>
 <html>
   <head>
+	<meta charset="UTF-8">
     <style type="text/css">
- 
-      div#player1 {
-        position: absolute;
-        left: 0;
-        top: 0%; 
-        background: blue;
-        width: 100px;
-        height: 100px;
-      }
-	  
-	  div#player2 {
-        position: absolute;
-        left: 0;
-        top: 80%; 
-        background: blue;
-        width: 100px;
-        height: 100px;
-      }
-	  
-      div#player1_shot {
-        position: absolute;
-        display: none; 
-        left:0;
-        top:0;
-        width:10px;
-        height:70px;
-        background-color: red; 
-      }
+		div#player1 {
+			border:2px solid;
+			border-radius:25px;
+			position: absolute;
+			background: grey;
+			width: 93px;
+			height: 150px;
+		}
+		div#player1_cannon {
+			background: black;
+			height: 120px;
+			width: 30px;
+		}
+			  
+		div#player1_turret {
+			background: black;
+			height: 30px;
+			width: 30px;
+			margin: 25px auto;
+		}
     </style>
     <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript">
-      $(function(){
-        var winWidth = $( document ).width();
-        var duration = 1000;
- 
+    <script type="text/javascript">		
+	//turret rotation
+	$(function(){		
+		var sdegree = 5;
+        var srotate = "rotate(" + sdegree + "deg)";
+		
         $( document ).keydown( function( event ){
           var keyCode = event.keyCode || event.which;
-          var keyMap = { left: 37, up: 38, right: 39, down: 40, space: 32};
- 
+          var keyMap = { left: 37, up: 38, right: 39, down: 40}
+			
+          switch ( keyCode ) {
+            case keyMap.left:
+              $( "#player1_turret" ).css({"-moz-transform" : "rotate(" + sdegree + "deg)", "-webkit-transform" : srotate});
+			  sdegree -= 5;
+            break;			
+			case keyMap.right:
+              $( "#player1_turret" ).css({"-moz-transform" : "rotate(" + sdegree + "deg)", "-webkit-transform" : srotate});
+			  sdegree += 5;
+            break;		
+          }
+        });
+      });
+	
+		//tank movement
+      $(function(){
+        $( document ).keydown( function( event ){
+          var keyCode = event.keyCode || event.which;
+          var keyMap = { left: 65, up: 87, right: 68, down: 83}
+			
           switch ( keyCode ) {
             case keyMap.left:
               $( "#player1" ).stop().animate({
-                left: '-=50'
+                left: '-=40'
               }, 100 );
             break;
 			
 			case keyMap.right:
               $( "#player1" ).stop().animate({
-                left: '+=50'
+                left: '+=40'
               }, 100 );
             break;
  
             case keyMap.up:
               $( "#player1" ).stop().animate({
-                top: '-=50'
+                top: '-=40'
               }, 100 );
             break;
 			
 			case keyMap.down:
               $( "#player1" ).stop().animate({
-                top: '+=50'
+                top: '+=40'
               }, 100 );
             break;
-			
-			case keyMap.space:
-              $( "#laser" ).css( "display", "block" )
-                .animate( {top:10}, 800, function(){
-                     });
-            break;
+		
           }
         });
       });
     </script>
   </head>
   <body>
-	<div id="player1" ></div>
-    <div id="player2" ></div>
-    <div id="player1_shot"></div>
-	<div id="player2_shot"></div>
+	<div id="player1" >
+		<div id="player1_turret">
+			<div id="player1_cannon"></div>
+		</div>
+	</div>
   </body>
 </html>
 
