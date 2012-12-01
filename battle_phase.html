@@ -33,7 +33,7 @@
       
       div#laser {
         position: absolute;
-        display: none; 
+        visibility: hidden; 
         left: 0;
         top: 0;
         width: 10px;
@@ -54,25 +54,26 @@
           switch ( keyCode ) {
             case keyMap.left:
               $( "#player1" ).stop().animate({
-                left: '-=50'
+                left: '-=100'
               }, 100 );
             break;
 			
 			case keyMap.right:
               $( "#player1" ).stop().animate({
-                left: '+=50'
+                left: '+=100'
               }, 100 );
             break;
  
             case keyMap.up:
               $( "#player1" ).stop().animate({
-                top: '-=50'
+                top: '-=100'
               }, 100 );
             break;
 			
 			case keyMap.down:
               $( "#player1" ).stop().animate({
-                top: '+=50'
+                top: '+=
+                100'
               }, 100 );
             break;
 			
@@ -82,7 +83,7 @@
                 var targetleft = 1000;
                 var targettop = 1000;
                 $("#laser").offset({left:tankleft + 50, top: tanktop + 50});
-                $("#laser").css("display", "block").animate({top: targettop, left: targetleft}, 500);
+                $("#laser").css("visibility", "visible").animate({top: targettop, left: targetleft}, 500);
             break;
           }
         });
