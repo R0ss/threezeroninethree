@@ -8,7 +8,7 @@
 			border-radius:25px;
 			position: absolute;
 			background: grey;
-			width: 93px;
+			width: 90px;
 			height: 150px;
 		}
 		div#player1_cannon {
@@ -53,49 +53,30 @@
 	
 	//current tank position
 	function tank_pos(){
-		tank_x = $( "#player1" ).position().left + 46; //tank x coordinates
+		tank_x = $( "#player1" ).position().left + 45; //tank x coordinates
 		tank_y = $( "#player1" ).position().top + 75; // tank y coordinates
 	}
 	
 	// update the turret position
 	function turret_direction() {
-		var left_difference = ((mouse_x - 50) - tank_x); //adjust origin of compass to match turret
-		var top_difference = ((mouse_y - 42) - tank_y); 
-		var player1_angle = Math.atan(Math.abs(top_difference/left_difference))*(180/Math.PI);
-		
-		if (mouse_x > tank_x && mouse_y < tank_y){ // north-east position of mouse
-			if(45 < turret_degree < 225){
-				turret_degree = (turret_degree + 5)%360; //rotate clockwise
-			  } else {
-				turret_degree = (turret_degree - 5)%360; //rotate counter clockwise
-			  }
-		}
-		else if (mouse_x < tank_x && mouse_y < tank_y){ // north-west position of mouse
-			if(turret_degree > 315 || turret_degree < 135){
-				turret_degree = (turret_degree + 5)%360; //rotate clockwise
-			  } else {
-				turret_degree = (turret_degree - 5)%360; //rotate counter clockwise
-			  }
-		}
-		else if (mouse_x < tank_x && mouse_y > tank_y){ // south-west position of mouse
-			if(turret_degree > 225 || turret_degree <= 45){
-				turret_degree = (turret_degree + 5)%360; //rotate clockwise
-			  } else {
-				turret_degree = (turret_degree - 5)%360; //rotate counter clockwise
-			  }
-		}
-		else if (mouse_x > tank_x && mouse_y > tank_y){ // south-east position of mouse
-			if(135 <= turret_degree <= 315){
-				turret_degree = (turret_degree + 5)%360; //rotate clockwise
-			  } else {
-				turret_degree = (turret_degree - 5)%360; //rotate counter clockwise
-			  }
+		tank_pos();
+		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
+		var deltaX = (mouse_y - tank_y);
+		var player1_angle = (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)); //*-1
+
+		if (((-1*player1_angle) != turret_degree)){
+			if ((-1*player1_angle) > turret_degree){
+				turret_degree = (turret_degree + 1)%360; //rotate clockwise
+			} else {
+				turret_degree = (turret_degree - 1)%360; //rotate counter clockwise
+			}
 		}
 		$( "#player1_turret" ) // change turret position to turret_degree
 			.css({
 				"-moz-transform" : "rotate(" + turret_degree + "deg)"
 				});
-		time_out = setTimeout(turret_direction, 100); // repeat myself
+		time_out = setTimeout(turret_direction, 25); // repeat myself
+		$("#test").html("mouse angle: " + player1_angle + ", turret angle:" + turret_degree);
 	}
 	
 		//tank movement
@@ -109,28 +90,24 @@
               $( "#player1" ).stop().animate({
                 left: '-=40'
               }, 100 );
-			  tank_pos();
             break;
 			
 			case keyMap.right:
               $( "#player1" ).stop().animate({
                 left: '+=40'
               }, 100 );
-			  tank_pos();
             break;
  
             case keyMap.up:
               $( "#player1" ).stop().animate({
                 top: '-=40'
               }, 100 );
-			  tank_pos();
             break;
 			
 			case keyMap.down:
               $( "#player1" ).stop().animate({
                 top: '+=40'
               }, 100 );
-			  tank_pos();
             break;
 			
 			case keyMap.space:
@@ -153,6 +130,7 @@
 		</div>
 	</div>
 	<div id="laser"></div>
+	<p id="test"></p>
   </body>
   
 </html>
