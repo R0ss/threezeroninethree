@@ -44,7 +44,7 @@
 	}
 	
 	$(function(){ //fire cannon with mouse
-		$( document ).mousedown( function(event){
+		$(document).mousedown( function(event){
 			if(player1_angle == turret_degree){ //only fire when cannon is in position
 				tank_pos();
 				$("#laser").offset({left: tank_x, top: tank_y - 33});
@@ -56,7 +56,7 @@
 	
 	//tank movement
       $(function(){
-        $( document ).keydown( function( event ){
+        $(document).keydown( function( event ){
           var keyCode = event.keyCode || event.which;
           var keyMap = { left: 65, up: 87, right: 68, down: 83}
           switch ( keyCode ) {

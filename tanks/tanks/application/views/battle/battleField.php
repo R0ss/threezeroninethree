@@ -3,8 +3,11 @@
 
 <html>
 	<head>
+	<link type="text/css" rel="stylesheet" href="<?=base_url()?>/css/battle/tank_image.css"/>
+
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="<?= base_url() ?>/js/jquery.timers.js"></script>
+	<script src="<?=base_url()?>/js/battle/tank_functions.js"></script>
 	<script>
 
 		var otherUser = "<?= $otherUser->login ?>";
@@ -65,6 +68,18 @@
 		else
 			echo "Wating on " . $otherUser->login;
 	?>
+	</div>
+	
+	<!--------------------------------
+	           BATTLE FIELD 
+	---------------------------------->
+	<div id="battlefield">
+	    <div id="player1" >
+		    <div id="player1_turret">
+			    <div id="player1_cannon"></div>
+		    </div>
+	    </div>
+	    <div id="laser"></div>
 	</div>
 	
 <?php 
