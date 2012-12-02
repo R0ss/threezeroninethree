@@ -82,17 +82,18 @@
 	    <div id="laser"></div>
 	</div>
 	
-<?php 
+	<div id="chatbox">
+        <?php 
 	
-	echo form_textarea('conversation');
+	        echo form_textarea('conversation');
 	
-	echo form_open();
-	echo form_input('msg');
-	echo form_submit('Send','Send');
-	echo form_close();
+	        echo form_open();
+	        echo form_input('msg');
+	        echo form_submit('Send','Send');
+	        echo form_close();
 	
-?>
-	
+        ?>
+	</div>
 	
 	
 	

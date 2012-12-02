@@ -1,13 +1,13 @@
 div#battlefield {
-	position: absolute;
 	width: 800px;
 	height: 800px;
+	background: yellow;
 }
 
 div#player1 {
+    position: absolute;
 	border:2px solid;
 	border-radius:25px;
-	position: absolute;
 	background: grey;
 	width: 90px;
 	height: 150px;
@@ -28,7 +28,6 @@ div#player1_turret {
 }
 
 div#laser {
-	position: absolute;
 	display: none;
 	left: 0;
 	top: 0;
@@ -36,4 +35,7 @@ div#laser {
 	height: 10px;
 	background-color: red;
 	z-index: 0;
+}
+
+div#chatbox {
 }
