@@ -18,12 +18,10 @@
 		$(function(){
 			$('body').everyTime(200,function(){ //call getIntel function
 				var url_get = "<?= base_url() ?>combat/getIntel";
-				$.getJSON(url_get, function (data,text,jqXHR){
+				$.getJSON(url_get, function (data, jqXHR){
 					if (data && data.status=='success') { //access variables using dot notation
 						var conversation = $('[name=conversation]').val();
 						var msg = data.message;
-						if (msg.length > 0)
-							$('[name=conversation]').val(conversation + "\n" + otherUser + ": " + msg);
 					}
 				});
 				

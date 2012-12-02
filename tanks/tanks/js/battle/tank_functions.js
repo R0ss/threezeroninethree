@@ -17,8 +17,8 @@
 	var angle = 0;
 	//current mouse position
 	$(document).mousemove(function(e){
-      mouse_x = e.pageX
-	  mouse_y = e.pageY
+      mouse_x = e.pageX;
+	  mouse_y = e.pageY;
 	});
 	
 	//current tank position
