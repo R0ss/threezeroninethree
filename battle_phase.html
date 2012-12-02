@@ -26,7 +26,7 @@
 		
 		div#laser {
 			position: absolute;
-			display: none;
+			visibility: none;
 			left: 0;
 			top: 0;
 			width: 10px;
@@ -113,8 +113,8 @@
             break;
 			
 			case keyMap.space:
-				var tankleft = $("#player1").offset().left;
-                var tanktop = $("#player1").offset().top; // LOL tanktop
+				var tankleft = $("#player1").position().left;
+                var tanktop = $("#player1").position().top; // LOL tanktop
                 var targetleft = 1000;
                 var targettop = 1000;
                 $("#laser").offset({left:tankleft + 50, top: tanktop + 50});
