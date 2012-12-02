@@ -22,6 +22,7 @@
 			height: 30px;
 			width: 30px;
 			margin: 25px auto;
+			z-index: 10;
 		}
 		
 		div#laser {
@@ -40,9 +41,9 @@
 	var mouse_y; //mouse y coordinates
 	var tank_x = 0; //tank x coordinates
 	var tank_y = 0; // tank y coordinates
-	var time_out = setTimeout(turret_direction, 100); //begin updating current turret location
+	var time_out = setTimeout(turret_direction, 25); //begin updating current turret location
 	var turret_degree = 0; // direction of turret in degrees
-	var turret_freeze = 5; // acceptable relative difference of angle between tank and mouse
+	var player1_angle = 0; // relative angle of mouse to tank
 	
 	var angle = 0;
 	//current mouse position
@@ -73,7 +74,7 @@
 				turret_degree = (turret_degree - 1) % 360; //rotate counter clockwise
 			}
 		}
-		$( "#player1_turret" ) // change turret position to turret_degree
+		$("#player1_turret") // change turret position to turret_degree
 			.css({
 				"-moz-transform" : "rotate(" + turret_degree + "deg)"
 				});
@@ -81,12 +82,20 @@
 		$("#test").html("mouse angle: " + player1_angle + ", turret angle:" + turret_degree);
 	}
 	
-		//tank movement
+	$(function(){ //fire cannon with mouse
+		$( document ).mousedown( function(event){
+			if(-1*player1_angle == turret_degree){ //only fire when cannon is in position
+				$("#laser").offset({left: tank_x, top: tank_y - 35});
+                $("#laser").css("display", "block").animate({top: mouse_y, left: mouse_x}, 500);
+			}
+		});
+	});
+	
+	//tank movement
       $(function(){
         $( document ).keydown( function( event ){
           var keyCode = event.keyCode || event.which;
-          var keyMap = { left: 65, up: 87, right: 68, down: 83, space: 32}
-			
+          var keyMap = { left: 65, up: 87, right: 68, down: 83}
           switch ( keyCode ) {
             case keyMap.left:
               $( "#player1" ).stop().animate({
