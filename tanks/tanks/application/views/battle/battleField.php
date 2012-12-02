@@ -5,10 +5,10 @@
 	<head>
 	<meta charset='utf-8'> 
 	<link type="text/css" rel="stylesheet" href="<?=base_url()?>/css/battle/tank_image.css"/>
-
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="<?= base_url() ?>/js/jquery.timers.js"></script>
-	<script src="<?=base_url()?>/js/battle/tank_functions.js"></script>
+	<script src="<?=base_url()?>/js/battle/tank_functions_<?php echo $player?>.js"></script>
+	<script src="<?=base_url()?>/js/battle/tank_functions_enemy.js"></script>
 	<script>
 
 		var otherUser = "<?= $otherUser->login ?>";
@@ -16,12 +16,12 @@
 		var status = "<?= $status ?>";
 		
 		$(function(){
-			$('body').everyTime(200,function(){ //call getIntel function
+			$('body').everyTime(1000,function(){ //call getIntel function
 				var url_get = "<?= base_url() ?>combat/getIntel";
 				$.getJSON(url_get, function (data, jqXHR){
 					if (data && data.status=='success') { //access variables using dot notation
 						var conversation = $('[name=conversation]').val();
-						var msg = data.message;
+						
 					}
 				});
 				
@@ -91,7 +91,13 @@
 			    <div id="player1_cannon"></div>
 		    </div>
 	    </div>
-	    <div id="laser"></div>
+	    <div id="player2" >
+		    <div id="player2_turret">
+			    <div id="player2_cannon"></div>
+		    </div>
+	    </div>
+	    <div id="player1_laser"></div>
+	    <div id="player2_laser"></div>
 	</div>
 
 	<h1>Battle Field</h1>

@@ -1,7 +1,7 @@
 div#battlefield {
 	width: 800px;
 	height: 800px;
-	background: yellow;
+	border:8px solid green;
 }
 
 div#player1 {
@@ -15,6 +15,7 @@ div#player1 {
 }
 div#player1_cannon {
 	background: black;
+	border:2px solid;
 	height: 130px;
 	width: 30px;
 	z-index: 3;
@@ -27,34 +28,39 @@ div#player1_turret {
 	margin: 25px auto;
 }
 
-div#laser {
+div#player1_laser {
 	display: none;
-	left: 0;
-	top: 0;
 	width: 10px;
 	height: 10px;
 	background-color: red;
 	z-index: 0;
 }
 
+div#chatbox {
+}
+
+
 div#player2 {
     position: absolute;
+    top: 600px;
+    left: 600px;
 	border:2px solid;
 	border-radius:25px;
-	background: orange;
+	background: silver;
 	width: 90px;
 	height: 150px;
 	z-index: 2;
 }
 div#player2_cannon {
-	background: black;
+	background: grey;
+	border:2px solid;
 	height: 130px;
 	width: 30px;
 	z-index: 3;
 }
 	  
 div#player2_turret {
-	background: black;
+	background: grey;
 	height: 30px;
 	width: 30px;
 	margin: 25px auto;
@@ -68,7 +74,4 @@ div#player2_laser {
 	height: 10px;
 	background-color: red;
 	z-index: 0;
-}
-
-div#chatbox {
 }

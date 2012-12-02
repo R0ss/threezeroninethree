@@ -35,10 +35,16 @@ class Combat extends CI_Controller {
 	    	}
 	    	else if ($user->user_status_id == User::BATTLING) {
 	    		$battle = $this->battle_model->get($user->battle_id);
-	    		if ($battle->user1_id == $user->id)
+	    		if ($battle->user1_id == $user->id){
 	    			$otherUser = $this->user_model->getFromId($battle->user2_id);
-	    		else
+	    			$data['player'] = "player1";
+	    			$data['enemy'] = "player2";
+	    		} else {
 	    			$otherUser = $this->user_model->getFromId($battle->user1_id);
+	    			$data['player'] = "player2";
+	    			$data['enemy'] = "player1";
+	    		}
+	    			
 	    	}
 	    	
 	    	$data['user']=$user;
