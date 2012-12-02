@@ -5,12 +5,20 @@
 	var time_out = setTimeout(turret_direction, 25); //begin updating current turret location
 	var turret_degree = 0; // direction of turret in degrees
 	var player1_angle = 0; // relative angle of mouse to tank
+	var fire_cannon = false;
+	var tank_hit = false;
+	
+	//determine if tank has been shot by enemy
+	function got_hit(){
+
+		tank_hit = true;		
+	}
 	
 	var angle = 0;
 	//current mouse position
 	$(document).mousemove(function(e){
-      mouse_x = e.pageX - $("#battlefield").position().left;
-	  mouse_y = e.pageY - $("#battlefield").position().top;
+      mouse_x = e.pageX
+	  mouse_y = e.pageY
 	});
 	
 	//current tank position
@@ -21,7 +29,6 @@
 	
 	// update the turret position
 	function turret_direction() {
-		tank_pos();
 		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
 		var deltaX = (mouse_y - tank_y);
 		player1_angle = (-1 * (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)) + 360) % 360; //*-1
@@ -46,10 +53,11 @@
 	$(function(){ //fire cannon with mouse
 		$(document).mousedown( function(event){
 			if(player1_angle == turret_degree){ //only fire when cannon is in position
+				fire_cannon = true;
 				tank_pos();
 				$("#laser").offset({left: tank_x, top: tank_y - 33});
 				$("#laser").fadeIn(300);
-				$("#laser").css("display", "block").animate({top: mouse_y, left: mouse_x}, 500);
+				$("#laser").css("display", "block").animate({top: mouse_y, left: mouse_x}, 900);
 			}
 		});
 	});

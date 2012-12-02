@@ -3,6 +3,7 @@
 
 <html>
 	<head>
+	<meta charset='utf-8'> 
 	<link type="text/css" rel="stylesheet" href="<?=base_url()?>/css/battle/tank_image.css"/>
 
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -15,6 +16,33 @@
 		var status = "<?= $status ?>";
 		
 		$(function(){
+			$('body').everyTime(200,function(){ //call getIntel function
+				var url_get = "<?= base_url() ?>combat/getIntel";
+				$.getJSON(url_get, function (data,text,jqXHR){
+					if (data && data.status=='success') { //access variables using dot notation
+						var conversation = $('[name=conversation]').val();
+						var msg = data.message;
+						if (msg.length > 0)
+							$('[name=conversation]').val(conversation + "\n" + otherUser + ": " + msg);
+					}
+				});
+				
+				var arguments = {};
+				arguments['x1'] = tank_x;
+				arguments['y1'] = tank_y;
+				arguments['x2'] = mouse_x; // we might consider using cannon angles to fire
+				arguments['y2'] = mouse_y;
+				arguments['angle'] = turret_degree;
+				arguments['shot'] = fire_cannon;
+				arguments['hit'] = tank_hit;
+				var url_post = "<?= base_url() ?>combat/postIntel";
+				$.ajax({ // Nothing else needs to be done, other than posting the data
+					  url: url_post,
+					  data: arguments,
+					  type: 'post',
+					});	
+			});
+			
 			$('body').everyTime(2000,function(){
 					if (status == 'waiting') {
 						$.getJSON('<?= base_url() ?>arcade/checkInvitation',function(data, text, jqZHR){
@@ -54,7 +82,20 @@
 	
 	</script>
 	</head> 
-<body>  
+<body>
+
+	<!--------------------------------
+	           BATTLE FIELD 
+	---------------------------------->
+	<div id="battlefield">
+	    <div id="player1" >
+		    <div id="player1_turret">
+			    <div id="player1_cannon"></div>
+		    </div>
+	    </div>
+	    <div id="laser"></div>
+	</div>
+
 	<h1>Battle Field</h1>
 
 	<div>
@@ -69,19 +110,7 @@
 			echo "Wating on " . $otherUser->login;
 	?>
 	</div>
-	
-	<!--------------------------------
-	           BATTLE FIELD 
-	---------------------------------->
-	<div id="battlefield">
-	    <div id="player1" >
-		    <div id="player1_turret">
-			    <div id="player1_cannon"></div>
-		    </div>
-	    </div>
-	    <div id="laser"></div>
-	</div>
-	
+		
 	<div id="chatbox">
         <?php 
 	
