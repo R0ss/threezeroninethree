@@ -1,13 +1,12 @@
-
 <!DOCTYPE html>
 
 <html>
 	<head>
+	<meta charset='utf-8'> 
 	<link type="text/css" rel="stylesheet" href="<?=base_url()?>/css/battle/tank_image.css"/>
-
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="<?= base_url() ?>/js/jquery.timers.js"></script>
-	<script src="<?=base_url()?>/js/battle/tank_functions.js"></script>
+	<script src="<?=base_url()?>/js/battle/tank_functions_<?php echo $player?>.js"></script>
 	<script>
 
 		var otherUser = "<?= $otherUser->login ?>";
@@ -15,6 +14,31 @@
 		var status = "<?= $status ?>";
 		
 		$(function(){
+			$('body').everyTime(1000,function(){ //call getIntel function
+				var url_get = "<?= base_url() ?>combat/getIntel";
+				$.getJSON(url_get, function (data, jqXHR){
+					if (data && data.status =='success') { //access variables using dot notation
+						// change turret position to turret_degree
+						$("#test").html("HELLO WORLD");
+					}
+				});
+				
+				var arguments = {};
+				arguments['x1'] = tank_x;
+				arguments['y1'] = tank_y;
+				arguments['x2'] = mouse_x; // we might consider using cannon angles to fire
+				arguments['y2'] = mouse_y;
+				arguments['angle'] = turret_degree;
+				arguments['shot'] = fire_cannon;
+				arguments['hit'] = tank_hit;
+				var url_post = "<?= base_url() ?>combat/postIntel";
+				$.ajax({ // Nothing else needs to be done, other than posting the data
+					  url: url_post,
+					  data: arguments,
+					  type: 'post',
+					});	
+			});
+			
 			$('body').everyTime(2000,function(){
 					if (status == 'waiting') {
 						$.getJSON('<?= base_url() ?>arcade/checkInvitation',function(data, text, jqZHR){
@@ -54,7 +78,26 @@
 	
 	</script>
 	</head> 
-<body>  
+<body>
+
+	<!--------------------------------
+	           BATTLE FIELD 
+	---------------------------------->
+	<div id="battlefield">
+	    <div id="player1" >
+		    <div id="player1_turret">
+			    <div id="player1_cannon"></div>
+		    </div>
+	    </div>
+	    <div id="player2" >
+		    <div id="player2_turret">
+			    <div id="player2_cannon"></div>
+		    </div>
+	    </div>
+	    <div id="player1_laser"></div>
+	    <div id="player2_laser"></div>
+	</div>
+	<p id="test"></p>
 	<h1>Battle Field</h1>
 
 	<div>
@@ -69,20 +112,6 @@
 			echo "Wating on " . $otherUser->login;
 	?>
 	</div>
-	
-	<!--------------------------------
-	           BATTLE FIELD 
-	---------------------------------->
-	<div id="test"></div>
-	<div id="battlefield">
-	    <div id="player1" >
-		    <div id="player1_turret">
-			    <div id="player1_cannon"></div>
-		    </div>
-	    </div>
-	    <div id="laser"></div>
-	</div>
-	
 	<div id="chatbox">
         <?php 
 	
