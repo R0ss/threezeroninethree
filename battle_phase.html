@@ -127,7 +127,7 @@
                 var targetleft = 1000;
                 var targettop = 1000;
                 $("#laser").offset({left:tankleft + 50, top: tanktop + 50});
-                $("#laser").css("visibility", "visible").animate({top: targettop, left: targetleft}, 500);
+                $("#laser").animate({visibility: 'visible', top: targettop, left: targetleft}, 500);
             break;
 			}
 		});
