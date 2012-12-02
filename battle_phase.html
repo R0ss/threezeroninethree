@@ -22,7 +22,7 @@
 			height: 30px;
 			width: 30px;
 			margin: 25px auto;
-			z-index: 10;
+			z-index: 3;
 		}
 		
 		div#laser {
@@ -63,7 +63,7 @@
 		tank_pos();
 		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
 		var deltaX = (mouse_y - tank_y);
-		var player1_angle = (-1 * (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)) + 360) % 360; //*-1
+		player1_angle = (-1 * (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)) + 360) % 360; //*-1
 	    turret_degree = (turret_degree + 360) % 360;
 
 		if (((player1_angle) != turret_degree)){
@@ -84,7 +84,7 @@
 	
 	$(function(){ //fire cannon with mouse
 		$( document ).mousedown( function(event){
-			if(-1*player1_angle == turret_degree){ //only fire when cannon is in position
+			if(player1_angle == turret_degree){ //only fire when cannon is in position
 				$("#laser").offset({left: tank_x, top: tank_y - 35});
                 $("#laser").css("display", "block").animate({top: mouse_y, left: mouse_x}, 500);
 			}
