@@ -20,7 +20,10 @@
 				$.getJSON(url_get, function (data, jqXHR){
 					if (data && data.status =='success') { //access variables using dot notation
 						// change turret position to turret_degree
-						$("#test").html("HELLO WORLD");
+						$("#<?php echo $enemy ?>_turret") // change turret position to turret_degree
+							.css({
+								"-moz-transform" : "rotate(" + data.enemy_angle + "deg)"
+							});
 					}
 				});
 				
