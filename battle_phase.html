@@ -10,11 +10,13 @@
 			background: grey;
 			width: 90px;
 			height: 150px;
+			z-index: 2;
 		}
 		div#player1_cannon {
 			background: black;
 			height: 120px;
 			width: 30px;
+			z-index: 3;
 		}
 			  
 		div#player1_turret {
@@ -22,7 +24,6 @@
 			height: 30px;
 			width: 30px;
 			margin: 25px auto;
-			z-index: 3;
 		}
 		
 		div#laser {
@@ -33,6 +34,7 @@
 			width: 10px;
 			height: 10px;
 			background-color: red;
+			z-index: 0;
       }
     </style>
     <script src="tanks/tanks/js/jquery-1.7.1.min.js"></script>
@@ -85,8 +87,9 @@
 	$(function(){ //fire cannon with mouse
 		$( document ).mousedown( function(event){
 			if(player1_angle == turret_degree){ //only fire when cannon is in position
-				$("#laser").offset({left: tank_x, top: tank_y - 35});
-                $("#laser").css("display", "block").animate({top: mouse_y, left: mouse_x}, 500);
+				$("#laser").offset({left: tank_x, top: tank_y - 33});
+				$("#laser").fadeIn(300);
+				$("#laser").css("display", "block").animate({top: mouse_y, left: mouse_x}, 500);
 			}
 		});
 	});
