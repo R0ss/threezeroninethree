@@ -8,7 +8,6 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="<?= base_url() ?>/js/jquery.timers.js"></script>
 	<script src="<?=base_url()?>/js/battle/tank_functions_<?php echo $player?>.js"></script>
-	<script src="<?=base_url()?>/js/battle/tank_functions_enemy.js"></script>
 	<script>
 
 		var otherUser = "<?= $otherUser->login ?>";
@@ -19,9 +18,9 @@
 			$('body').everyTime(1000,function(){ //call getIntel function
 				var url_get = "<?= base_url() ?>combat/getIntel";
 				$.getJSON(url_get, function (data, jqXHR){
-					if (data && data.status=='success') { //access variables using dot notation
-						var conversation = $('[name=conversation]').val();
-						
+					if (data && data.status =='success') { //access variables using dot notation
+						// change turret position to turret_degree
+						$("#test").html("HELLO WORLD");
 					}
 				});
 				
@@ -99,7 +98,7 @@
 	    <div id="player1_laser"></div>
 	    <div id="player2_laser"></div>
 	</div>
-
+	<p id="test"></p>
 	<h1>Battle Field</h1>
 
 	<div>
