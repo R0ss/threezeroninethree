@@ -62,13 +62,15 @@
 		tank_pos();
 		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
 		var deltaX = (mouse_y - tank_y);
-		var player1_angle = (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)); //*-1
+		var player1_angle = (-1 * (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)) + 360) % 360; //*-1
+	    turret_degree = (turret_degree + 360) % 360;
 
-		if (((-1*player1_angle) != turret_degree)){
-			if ((-1*player1_angle) > turret_degree){
-				turret_degree = (turret_degree + 1)%360; //rotate clockwise
-			} else {
-				turret_degree = (turret_degree - 1)%360; //rotate counter clockwise
+		if (((player1_angle) != turret_degree)){
+		    var difference = (player1_angle - turret_degree + 360) % 360;
+			if (difference < 180){
+				turret_degree = (turret_degree + 1) % 360; //rotate clockwise
+			} else if (difference > 180) {
+				turret_degree = (turret_degree - 1) % 360; //rotate counter clockwise
 			}
 		}
 		$( "#player1_turret" ) // change turret position to turret_degree
