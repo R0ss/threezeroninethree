@@ -21,7 +21,7 @@
 	
 	// update the turret position
 	function turret_direction() {
-		tank_pos();
+		//tank_pos(); This is already calculated once below.
 		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
 		var deltaX = (mouse_y - tank_y);
 		player1_angle = (-1 * (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)) + 360) % 360; //*-1
@@ -40,7 +40,10 @@
 				"-moz-transform" : "rotate(" + turret_degree + "deg)"
 				});
 		time_out = setTimeout(turret_direction, 25); // repeat myself
-		$("#test").html("mouse angle: " + player1_angle + ", turret angle:" + turret_degree);
+		$("#test").html("mouse angle: " + player1_angle + ", turret angle:" + turret_degree +
+		    ", tank_x: " + tank_x + ", tank_y: " + tank_y +
+		    ", mouse_x: " + mouse_x + ", mouse_y: " + mouse_y
+		);
 	}
 	
 	$(function(){ //fire cannon with mouse

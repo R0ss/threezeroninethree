@@ -73,6 +73,7 @@
 	<!--------------------------------
 	           BATTLE FIELD 
 	---------------------------------->
+	<div id="test"></div>
 	<div id="battlefield">
 	    <div id="player1" >
 		    <div id="player1_turret">
