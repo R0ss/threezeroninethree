@@ -62,12 +62,12 @@ class Battle_model extends CI_Model {
 	
 	function clearHitU1($id) {
 		$this->db->where('id',$id);
-		return $this->db->update('battle',array('$u1_hit'=>false));
+		return $this->db->update('battle',array('u1_hit'=>false));
 	}
 	
 	function clearHitU2($id) {
 		$this->db->where('id',$id);
-		return $this->db->update('battle',array('$u2_hit'=>false));
+		return $this->db->update('battle',array('u2_hit'=>false));
 	}
 	
 	
