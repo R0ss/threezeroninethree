@@ -22,7 +22,7 @@
 						// change turret position to turret_degree
 						$("#<?php echo $enemy ?>_turret") // change turret position to turret_degree
 							.css({
-								"transform" : "rotate(" + data.enemy_angle + "deg)"
+								"-moz-transform" : "rotate(" + data.enemy_angle + "deg)"
 							});
 						$("#<?php echo $enemy ?>") // change tanks position
 						.css({

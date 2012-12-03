@@ -44,7 +44,7 @@
 		}
 		$("#player2_turret") // change turret position to turret_degree
 			.css({
-				"transform" : "rotate(" + turret_degree + "deg)"
+				"-moz-transform" : "rotate(" + turret_degree + "deg)"
 				});
 		time_out = setTimeout(turret_direction, 25); // repeat myself
 	}
