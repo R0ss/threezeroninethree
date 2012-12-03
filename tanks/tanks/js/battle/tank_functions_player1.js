@@ -2,7 +2,7 @@
 	var tank_y = 0; // tank y coordinates
 	var mouse_x; //mouse x coordinates
 	var mouse_y; //mouse y coordinates
-	var time_out = setTimeout(turret_direction, 25); //begin updating current turret location
+	var time_out = setTimeout(turret_direction, 200); //begin updating current turret location
 	var turret_degree = 0; // direction of turret in degrees
 	var player1_angle = 0; // relative angle of mouse to tank
 	var fire_cannon = 0;
@@ -29,24 +29,11 @@
 	
 	// update the turret position
 	function turret_direction() {
-		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
-		var deltaX = (mouse_y - tank_y);
-		player1_angle = (-1 * (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)) + 360) % 360; //*-1
-	    turret_degree = (turret_degree + 360) % 360;
-
-		if (((player1_angle) != turret_degree)){
-		    var difference = (player1_angle - turret_degree + 360) % 360;
-			if (difference < 180){
-				turret_degree = (turret_degree + 1) % 360; //rotate clockwise
-			} else if (difference > 180) {
-				turret_degree = (turret_degree - 1) % 360; //rotate counter clockwise
-			}
-		}
 		$("#player1_turret") // change turret position to turret_degree
 			.css({
 				"-moz-transform" : "rotate(" + turret_degree + "deg)"
 				});
-		time_out = setTimeout(turret_direction, 25); // repeat myself
+		time_out = setTimeout(turret_direction, 200); // repeat myself
 	}
 	
 	$(function(){ //fire cannon with mouse
@@ -58,6 +45,22 @@
 				$("#player1_laser").css("display", "block").animate({top: mouse_y, left: mouse_x}, 900);
 			}
 		});
+	});
+	
+	$(document).mousemove( function(event){
+		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
+		var deltaX = (mouse_y - tank_y);
+		player1_angle = (-1 * (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)) + 360) % 360; //*-1
+	    turret_degree = (turret_degree + 360) % 360;
+	
+		if (((player1_angle) != turret_degree)){
+		    var difference = (player1_angle - turret_degree + 360) % 360;
+			if (difference < 180){
+				turret_degree = (turret_degree + 1) % 360; //rotate clockwise
+			} else if (difference > 180) {
+				turret_degree = (turret_degree - 1) % 360; //rotate counter clockwise
+			}
+		}
 	});
 	
 	//tank movement

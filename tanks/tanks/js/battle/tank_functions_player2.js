@@ -2,7 +2,7 @@
 	var tank_y = 600; // tank y coordinates
 	var mouse_x; //mouse x coordinates
 	var mouse_y; //mouse y coordinates
-	var time_out = setTimeout(turret_direction, 25); //begin updating current turret location
+	var time_out = setTimeout(turret_direction, 200); //begin updating current turret location
 	var turret_degree = 180; // direction of turret in degrees
 	var player2_angle = 0; // relative angle of mouse to tank
 	var fire_cannon = 0;
@@ -29,11 +29,19 @@
 	
 	// update the turret position
 	function turret_direction() {
+		$("#player2_turret") // change turret position to turret_degree
+			.css({
+				"-moz-transform" : "rotate(" + turret_degree + "deg)"
+				});
+		time_out = setTimeout(turret_direction, 200); // repeat myself
+	}
+	
+	$(document).mousemove(function(event){
 		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
 		var deltaX = (mouse_y - tank_y);
 		player2_angle = (-1 * (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)) + 360) % 360; //*-1
 	    turret_degree = (turret_degree + 360) % 360;
-
+	
 		if (((player2_angle) != turret_degree)){
 		    var difference = (player2_angle - turret_degree + 360) % 360;
 			if (difference < 180){
@@ -42,12 +50,7 @@
 				turret_degree = (turret_degree - 1) % 360; //rotate counter clockwise
 			}
 		}
-		$("#player2_turret") // change turret position to turret_degree
-			.css({
-				"-moz-transform" : "rotate(" + turret_degree + "deg)"
-				});
-		time_out = setTimeout(turret_direction, 25); // repeat myself
-	}
+	});
 	
 	$(function(){ //fire cannon with mouse
 		$(document).mousedown( function(event){
