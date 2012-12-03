@@ -24,10 +24,10 @@
 								"-moz-transform" : "rotate(" + data.enemy_angle + "deg)"
 							});
 						$("#<?php echo $enemy ?>") // change tanks position
-						.css({
-							top : enemy_y1,
-							left : enemy_x1
-						});
+						.animate({
+							top : data.enemy_y1,
+							left : data.enemy_x1
+						}, 1000);
 						$("#test").html(data.enemy_y1 + " , " + data.enemy_x1);
 					}
 				});
