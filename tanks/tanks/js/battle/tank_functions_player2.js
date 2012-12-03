@@ -1,5 +1,5 @@
-	var tank_x = 645; //tank x coordinates
-	var tank_y = 675; // tank y coordinates
+	var tank_x = 600; //tank x coordinates
+	var tank_y = 600; // tank y coordinates
 	var mouse_x; //mouse x coordinates
 	var mouse_y; //mouse y coordinates
 	var time_out = setTimeout(turret_direction, 25); //begin updating current turret location
@@ -20,7 +20,13 @@
       mouse_x = e.pageX;
 	  mouse_y = e.pageY;
 	});
-		
+	
+	//current tank position
+	function tank_pos(){
+		tank_x = $( "#player2" ).position().left + 45; //tank x coordinates
+		tank_y = $( "#player2" ).position().top + 75; // tank y coordinates
+	}
+	
 	// update the turret position
 	function turret_direction() {
 		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
@@ -38,7 +44,7 @@
 		}
 		$("#player2_turret") // change turret position to turret_degree
 			.css({
-				"-moz-transform" : "rotate(" + turret_degree + "deg)"
+				"transform" : "rotate(" + turret_degree + "deg)"
 				});
 		time_out = setTimeout(turret_direction, 25); // repeat myself
 	}
@@ -56,7 +62,7 @@
 	
 	//tank movement
       $(function(){
-        $(document).keyup( function( event ){
+        $(document).keydown( function( event ){
           var keyCode = event.keyCode || event.which;
           var keyMap = { left: 65, up: 87, right: 68, down: 83}
           switch ( keyCode ) {
@@ -64,30 +70,26 @@
               $( "#player2" ).stop().animate({
                 left: '-=40'
               }, 100 );
-              tank_x -= 40;
               break;
 			
 			case keyMap.right:
               $( "#player2" ).stop().animate({
                 left: '+=40'
               }, 100 );
-              tank_x += 40;
               break;
  
             case keyMap.up:
               $( "#player2" ).stop().animate({
                 top: '-=40'
               }, 100 );
-              tank_pos();
-              tank_y -= 40;
               break;
 			
 			case keyMap.down:
               $( "#player2" ).stop().animate({
                 top: '+=40'
               }, 100 );
-              tank_y += 40;
               break;
 			}
+          tank_pos();
 		});
 	});
