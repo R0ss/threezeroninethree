@@ -17,13 +17,19 @@
 		$(function(){
 			$('body').everyTime(1000,function(){ //call getIntel function
 				var url_get = "<?= base_url() ?>combat/getIntel";
-				$.getJSON(url_get, function (data, jqXHR){
+				$.getJSON(url_get, function (data){
 					if (data && data.status =='success') { //access variables using dot notation
 						// change turret position to turret_degree
 						$("#<?php echo $enemy ?>_turret") // change turret position to turret_degree
 							.css({
-								"-moz-transform" : "rotate(" + data.enemy_angle + "deg)"
+								"transform" : "rotate(" + data.enemy_angle + "deg)"
 							});
+						$("#<?php echo $enemy ?>") // change tanks position
+						.css({
+							top : data.enemy_y1,
+							left : data.enemy_x1
+						});
+						$("#test").html(data.enemy_y1 + " , " + data.enemy_x1);
 					}
 				});
 				
