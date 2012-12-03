@@ -28,7 +28,14 @@
 							top : data.enemy_y1,
 							left : data.enemy_x1
 						}, 1000);
-						$("#test").html(data.enemy_y1 + " , " + data.enemy_x1);
+						$("#test").html("Opponent variables: " +
+								'enemy_x1: ' + data.enemy_x1 + " , " +
+								'enemy_y1: ' + data.enemy_y1 + " , " +
+								'mouse_x2: ' + data.enemy_x2 + " , " +
+								'mouse_y2: ' + data.enemy_y2 + " , " +
+								'enemy_angle: ' + data.enemy_angle + " , " +
+								'enemy_shot: ' + data.enemy_shot + " ," +
+								'enemy_hit: ' + data.enemy_hit + " ,");
 					}
 				});
 				
