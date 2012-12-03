@@ -26,8 +26,8 @@
 							});
 						$("#<?php echo $enemy ?>") // change tanks position
 						.css({
-							top : data.enemy_y1,
-							left : data.enemy_x1
+							top : 55,
+							left : 55
 						});
 						$("#test").html(data.enemy_y1 + " , " + data.enemy_x1);
 					}
