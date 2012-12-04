@@ -2,10 +2,11 @@
 	var tank_y = 600; // tank y coordinates
 	var mouse_x; //mouse x coordinates
 	var mouse_y; //mouse y coordinates
+	var target_x, target_y; // Cannon target
 	var time_out = setTimeout(turret_direction, 200); //begin updating current turret location
 	var turret_degree = 180; // direction of turret in degrees
 	var player2_angle = 0; // relative angle of mouse to tank
-	var fire_cannon = false;
+	var fire_cannon = 0;
 	var tank_hit = false;
 	
 	//determine if tank has been shot by enemy
@@ -51,7 +52,9 @@
 	$(function(){ //fire cannon with mouse
 		$(document).mousedown( function(event){
 			if(player2_angle == turret_degree){ //only fire when cannon is in position
-				fire_cannon = true;
+				fire_cannon = 1;
+				target_x = mouse_x;
+				target_y = mouse_y;
 				$("#player2_laser").offset({left: tank_x, top: tank_y - 33}).fadeIn(300)
 				  .css("display", "block").animate({top: mouse_y, left: mouse_x}, 900);
 			}
