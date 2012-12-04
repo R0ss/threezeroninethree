@@ -65,7 +65,7 @@
 	$(function(){ //fire cannon with mouse
 		$(document).mousedown( function(event){
 			if(player1_angle == turret_degree){ //only fire when cannon is in position
-				fire_cannon = true;
+				fire_cannon = 1;
 				target_x = mouse_x;
 				target_y = mouse_y;
 			  $("#player1_laser")
