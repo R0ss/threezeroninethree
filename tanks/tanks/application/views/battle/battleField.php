@@ -29,6 +29,13 @@
 						top : data.enemy_y1,
 						left : data.enemy_x1
 					}, 0);
+
+          if (data.enemy_shot == 1){
+					  $("#<?=$enemy?>_laser").offset({left: data.enemy_x1, top: data.enemy_y1 - 33}).fadeIn(300)
+				    .css("display", "block").animate({top: data.enemy_y2, left: data.enemy_x2}, 900);
+          }          
+          									  
+				  $("#test").html("x: " + data.enemy_x2 + ", y: " + data.enemy_y2 + " home cannon: " + fire_cannon + " enemy cannon: " + data.enemy_shot);
 				}
 			});
 			
@@ -39,15 +46,17 @@
 					{ 
 					  'x1': (tank_x - 36),
 					  'y1': (tank_y - 36),
-				      'x2': mouse_x,
-				      'y2': mouse_y,
+				      'x2': target_x,
+				      'y2': target_y,
 				      'angle': turret_degree,
 				      'shot': fire_cannon,
 				      'hit': tank_hit
 				    },
 				  type: 'post',
 				});
-			enemy_pause = setTimeout(update_enemy, 500);	
+			enemy_pause = setTimeout(update_enemy, 500);
+			
+			fire_cannon = 0;	
 		}
 			
 			function invitation_check() {
