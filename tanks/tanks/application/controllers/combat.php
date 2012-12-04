@@ -313,7 +313,8 @@ class Combat extends CI_Controller {
  	 		
  		echo json_encode(array('status'=>'success'));
  		
- 		redirect('arcade/index', 'refresh'); //redirect back to arcade
+ 		
+ 		//redirect('arcade/index', 'refresh'); //redirect back to arcade
  		return;
  		
  		transactionerror:

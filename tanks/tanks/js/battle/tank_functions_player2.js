@@ -48,11 +48,11 @@
 				fire_cannon = 1;
 				target_x = mouse_x;
 				target_y = mouse_y;
-				$("#player2_laser")
-				  .offset({left: tank_x, top: tank_y - 37})
-				  .fadeIn(300)
-				  .css("display", "block")
-				  .animate({top: mouse_y, left: mouse_x}, 400);
+				  $("#player2_laser")
+				    .offset({left: tank_x, top: tank_y - 37})
+				    .fadeIn(300)
+				    .css("display", "block")
+				    .animate({top: mouse_y, left: mouse_x}, 400);
 			}
 			//tank movement
 		}).keydown( function( event ){
@@ -60,69 +60,69 @@
 	          var keyMap = { left: 65, up: 87, right: 68, down: 83}
 	          switch ( keyCode ) {
 	            case keyMap.left:
-	            	if(tank_x < 500){
-		              $( "#player2" ).stop().animate({
-		                left: '+=500'
-		              }, 100 );
-		              tank_x +=500;
-		              update_turret();
-	            	}else{
-	            	$( "#player2" ).stop().animate({
-    	                left: '-=40'
-    	              }, 100 );
-    	              update_turret();
-	            	}
-	              break;
+	              	if(tank_x < 550){
+			              $( "#player2" ).stop().animate({
+			                left: '+=80'
+			              }, 0 );
+			              tank_x +=80;
+			              update_turret();
+		            	}else{
+		            	$( "#player2" ).stop().animate({
+	    	                left: '-=40'
+	    	              }, 100 );
+	    	              update_turret();
+		            	}
+		              break;
 
-				
-				case keyMap.right:
-	            	if(tank_x > 500){
-			              $( "#player2" ).stop().animate({
-			                left: '-=500'
-			              }, 100 );
-			              tank_x -=500;
-			              update_turret();
-		            	}else{
-		            	$( "#player2" ).stop().animate({
-	    	                left: '+=40'
-	    	              }, 100 );
-	    	              update_turret();
-		            	}
-	              break;
-	 
-	            case keyMap.up:
-	            	if(tank_y < 10){
-			              $( "#player2" ).stop().animate({
-			                top: '+=500'
-			              }, 100 );
-			              tank_y +=500;
-			              update_turret();
-		            	}else{
-		            	$( "#player2" ).stop().animate({
-	    	                top: '-=40'
-	    	              }, 100 );
-	    	              update_turret();
-		            	}
-	              break;
-				
-				case keyMap.down:
-	            	if(tank_y > 800){
-			              $( "#player2" ).stop().animate({
-			                top: '-=500'
-			              }, 100 );
-			              tank_y -=500;
-			              update_turret();
-		            	}else{
-		            	$( "#player2" ).stop().animate({
-	    	                top: '+=40'
-	    	              }, 100 );
-	    	              update_turret();
-		            	}
-	              break;
-				}
-			}).mousemove(function(event){
-			    mouse_x = event.pageX;
-				mouse_y = event.pageY;
-				update_turret();
-			});
+					
+					case keyMap.right:
+		            	if(tank_x > 1000){
+				              $( "#player2" ).stop().animate({
+				                left: '-=250'
+				              }, 0 );
+				              tank_x -=250;
+				              update_turret();
+			            	}else{
+			            	$( "#player2" ).stop().animate({
+		    	                left: '+=40'
+		    	              }, 100 );
+		    	              update_turret();
+			            	}
+		              break;
+		 
+		            case keyMap.up:
+		            	if(tank_y < 10){
+				              $( "#player2" ).stop().animate({
+				                top: '+=250'
+				              }, 0 );
+				              tank_y +=250;
+				              update_turret();
+			            	}else{
+			            	$( "#player2" ).stop().animate({
+		    	                top: '-=40'
+		    	              }, 100 );
+		    	              update_turret();
+			            	}
+		              break;
+					
+					case keyMap.down:
+		            	if(tank_y > 800){
+				              $( "#player2" ).stop().animate({
+				                top: '-=250'
+				              }, 0 );
+				              tank_y -=250;
+				              update_turret();
+			            	}else{
+			            	$( "#player2" ).stop().animate({
+		    	                top: '+=40'
+		    	              }, 100 );
+		    	              update_turret();
+			            	}
+		              break;
+					}
+				}).mousemove(function(event){
+				    mouse_x = event.pageX;
+					mouse_y = event.pageY;
+					update_turret();
+				});
 	});

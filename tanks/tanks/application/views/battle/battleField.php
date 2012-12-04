@@ -13,7 +13,7 @@
 		var otherUser = "<?= $otherUser->login ?>";
 		var user = "<?= $user->login ?>";
 		var status = "<?= $status ?>";
-		var enemy_pause = setTimeout(update_enemy, 500);
+		var enemy_pause = setTimeout(update_enemy, 200);
 		var invitation_pause = setTimeout(invitation_check,2000);
 		var player_lost = false;
 		var enemy_lost = false;
@@ -78,7 +78,7 @@
 			     $("#<?php echo $player?>").hide("explode", 1000);
 			     
 				}
-			enemy_pause = setTimeout(update_enemy, 500);
+			enemy_pause = setTimeout(update_enemy, 200);
 			// Determine which player won
 			if(player_lost && enemy_lost){
 				end_game("draw");
@@ -104,23 +104,29 @@
 									status = 'battling';
 									$('#status').html('Battling ' + otherUser);
 								}
-								
 						});
 					}
 					invitation_pause = setTimeout(invitation_check, 2000);
 			}
 			// send results to endPhase function
 			function end_game(winner){
-				clearTimeout(invitation_pause);
-				
 				var url_winner = "<?= base_url() ?>combat/endPhase";
 				$.ajax({ // Provide results of battle
 					  url: url_winner,
 					  data:{'winner': winner},
 					  type: 'post',
 					});
-				clearTimeout(enemy_pause);
+				if (winner == "draw"){
+					alert("You have tied with your opponent.");
+					window.location.href = '<?= base_url() ?>arcade/index';
+				} else if (winner == "player_won"){
+					alert("Congratulations you've won!");
+					window.location.href = '<?= base_url() ?>arcade/index';
+				} else {
+					alert("YOU LOSE");
+					window.location.href = '<?= base_url() ?>arcade/index';	
 				}
+			}
 	
 	</script>
 	</head> 

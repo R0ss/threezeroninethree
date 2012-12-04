@@ -63,9 +63,9 @@
 	            case keyMap.left:
 	            	if(tank_x < 500){
 		              $( "#player1" ).stop().animate({
-		                left: '+=500'
-		              }, 100 );
-		              tank_x +=500;
+		                left: '+=250'
+		              }, 0 );
+		              tank_x +=250;
 		              update_turret();
 	            	}else{
 	            	$( "#player1" ).stop().animate({
@@ -77,11 +77,11 @@
 
 				
 				case keyMap.right:
-	            	if(tank_x > 500){
+	            	if(tank_x > 450){
 			              $( "#player1" ).stop().animate({
-			                left: '-=500'
-			              }, 100 );
-			              tank_x -=500;
+			                left: '-=80'
+			              }, 0 );
+			              tank_x -=80;
 			              update_turret();
 		            	}else{
 		            	$( "#player1" ).stop().animate({
@@ -94,9 +94,9 @@
 	            case keyMap.up:
 	            	if(tank_y < 10){
 			              $( "#player1" ).stop().animate({
-			                top: '+=500'
-			              }, 100 );
-			              tank_y +=500;
+			                top: '+=250'
+			              }, 0 );
+			              tank_y +=250;
 			              update_turret();
 		            	}else{
 		            	$( "#player1" ).stop().animate({
@@ -109,9 +109,9 @@
 				case keyMap.down:
 	            	if(tank_y > 800){
 			              $( "#player1" ).stop().animate({
-			                top: '-=500'
-			              }, 100 );
-			              tank_y -=500;
+			                top: '-=250'
+			              }, 0 );
+			              tank_y -=250;
 			              update_turret();
 		            	}else{
 		            	$( "#player1" ).stop().animate({
