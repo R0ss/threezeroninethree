@@ -51,8 +51,8 @@ div#player1_turret {
 
 div#player1_laser {
 	display: none;
-	width: 9px;
-	height: 9px;
+	width: 19px;
+	height: 19px;
 	border:1px solid silver;
 	background-color: blue;
 	z-index: 0;
@@ -86,8 +86,8 @@ div#player2_turret {
 
 div#player2_laser {
 	display: none;
-	width: 9px;
-	height: 9px;
+	width: 19px;
+	height: 19px;
 	background-color: red;
 	border:1px solid silver;
 	z-index: 0;

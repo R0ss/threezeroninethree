@@ -15,6 +15,12 @@
 		var enemy_pause = setTimeout(update_enemy, 500);
 		var invitation_pause = setTimeout(invitation_check,2000);
 		
+		var distance;
+		function youreHit(tank_x, tank_y, shot_x, shot_y){
+		  return Math.sqrt(Math.pow(tank_x - shot_x, 2) + Math.pow(tank_y - shot_y, 2)) < 55;
+		  // 55 is about the general vicinity of the tank.
+		}
+		
 		function update_enemy() { //call getIntel function
 			var url_get = "<?= base_url() ?>combat/getIntel";
 			$.getJSON(url_get, function (data,jqXHR){
@@ -32,10 +38,14 @@
 
           if (data.enemy_shot == 1){
 					  $("#<?=$enemy?>_laser").offset({left: data.enemy_x1, top: data.enemy_y1 - 33}).fadeIn(300)
-				    .css("display", "block").animate({top: data.enemy_y2, left: data.enemy_x2}, 900);
+				    .css("display", "block").animate({top: data.enemy_y2, left: data.enemy_x2}, 400);
+				    
+				    if (youreHit(tank_x, tank_y, data.enemy_x2, data.enemy_y2) == true){
+				      tank_hit = 1;
+				    }
           }          
           									  
-				  $("#test").html("x: " + data.enemy_x2 + ", y: " + data.enemy_y2 + " home cannon: " + fire_cannon + " enemy cannon: " + data.enemy_shot);
+				  $("#test").html("x: " + data.enemy_x2 + ", y: " + data.enemy_y2 + " home cannon: " + fire_cannon + " enemy cannon: " + data.enemy_shot + " tank_hit: " + tank_hit);
 				}
 			});
 			

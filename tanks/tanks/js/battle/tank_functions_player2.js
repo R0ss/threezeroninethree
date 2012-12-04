@@ -7,12 +7,11 @@
 	var turret_degree = 180; // direction of turret in degrees
 	var player2_angle = 0; // relative angle of mouse to tank
 	var fire_cannon = 0;
-	var tank_hit = false;
+	var tank_hit = 0;
 	
 	//determine if tank has been shot by enemy
 	function got_hit(){
-
-		tank_hit = true;		
+		tank_hit = 1;		
 	}
 	
 	// update the turret position
@@ -53,7 +52,7 @@
 				  .offset({left: tank_x, top: tank_y - 37})
 				  .fadeIn(300)
 				  .css("display", "block")
-				  .animate({top: mouse_y, left: mouse_x}, 900);
+				  .animate({top: mouse_y, left: mouse_x}, 400);
 			}
 			//tank movement
 		}).keydown( function( event ){
