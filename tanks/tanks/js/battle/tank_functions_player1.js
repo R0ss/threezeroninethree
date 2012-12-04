@@ -66,11 +66,13 @@
 		$(document).mousedown( function(event){
 			if(player1_angle == turret_degree){ //only fire when cannon is in position
 				fire_cannon = true;
-				$("#player1_laser")
-				.offset({left: tank_x, top: tank_y - 37})
-				.fadeIn(300)
-				.css("display", "block")
-				.animate({top: mouse_y, left: mouse_x}, 900);
+				target_x = mouse_x;
+				target_y = mouse_y;
+			  $("#player1_laser")
+			    .offset({left: tank_x, top: tank_y - 37})
+			    .fadeIn(300)
+			    .css("display", "block")
+			    .animate({top: mouse_y, left: mouse_x}, 900);
 			}
 			//tank movement
 		}).keydown( function( event ){
