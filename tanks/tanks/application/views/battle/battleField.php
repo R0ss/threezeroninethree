@@ -6,6 +6,7 @@
 	<link type="text/css" rel="stylesheet" href="<?=base_url()?>/css/battle/tank_image.css"/>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="<?= base_url() ?>/js/jquery.timers.js"></script>
+	<script src="<?= base_url() ?>/js/jquery-ui-1.9.2.custom.min.js"></script>
 	<script src="<?=base_url()?>/js/battle/tank_functions_<?php echo $player?>.js"></script>
 	<script>
 
@@ -14,6 +15,8 @@
 		var status = "<?= $status ?>";
 		var enemy_pause = setTimeout(update_enemy, 500);
 		var invitation_pause = setTimeout(invitation_check,2000);
+		var player_lost = false;
+		var enemy_lost = false;
 		
 		var distance;
 		function youreHit(tank_x, tank_y, shot_x, shot_y){
@@ -44,9 +47,13 @@
 				      tank_hit = 1;
 				    }
           }          
-          									  
-				  $("#test").html("x: " + data.enemy_x2 + ", y: " + data.enemy_y2 + " home cannon: " + fire_cannon + " enemy cannon: " + data.enemy_shot + " tank_hit: " + tank_hit);
 				}
+				if(data.enemy_hit == true){
+					$("#<?php echo $enemy ?>").hide("explode", 1000);
+					enemy_lost = true;
+					;
+				}
+				
 			});
 			
 			var url_post = "<?= base_url() ?>combat/postIntel";
@@ -64,7 +71,23 @@
 				    },
 				  type: 'post',
 				});
+			
 			enemy_pause = setTimeout(update_enemy, 500);
+			if(tank_hit == true){
+				player_lost = true;
+			     $("#<?php echo $player?>").hide("explode", 1000);
+			     
+				}
+			// Determine which player won
+			if(player_lost && enemy_lost){
+				end_game("draw");
+				}
+			else if (player_lost){
+				end_game("enemy_won");
+				}
+			else if (enemy_lost){
+				end_game("player_won")
+				}
 			
 			fire_cannon = 0;	
 		}
@@ -85,6 +108,18 @@
 					}
 					invitation_pause = setTimeout(invitation_check, 2000);
 			}
+			// send results to endPhase function
+			function end_game(winner){
+				clearTimeout(invitation_pause);
+				
+				var url_winner = "<?= base_url() ?>combat/endPhase";
+				$.ajax({ // Provide results of battle
+					  url: url_winner,
+					  data:{'winner': winner},
+					  type: 'post',
+					});
+				clearTimeout(enemy_pause);
+				}
 	
 	</script>
 	</head> 

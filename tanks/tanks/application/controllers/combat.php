@@ -174,7 +174,6 @@ class Combat extends CI_Controller {
  			$shot = $battle->u2_shot;
  			$hit = $battle->u2_hit;
  			$this->battle_model->clearShotU2($battle->id);
- 			$this->battle_model->clearHitU2($battle->id);
  		}
  		else {
  			$x1 = $battle->u1_x1;
@@ -185,7 +184,6 @@ class Combat extends CI_Controller {
  			$shot = $battle->u1_shot;
  			$hit = $battle->u1_hit;
  			$this->battle_model->clearShotU1($battle->id);
- 			$this->battle_model->clearHitU1($battle->id);
  		}
  		
  		if ($this->db->trans_status() === FALSE) {
@@ -227,6 +225,9 @@ class Combat extends CI_Controller {
  				$errormsg="Not in BATTLING state";
  				goto error;
  			}
+ 			
+ 			// start transactional mode
+ 			$this->db->trans_begin();
  	
  			$battle = $this->battle_model->get($user->battle_id);
  			
@@ -244,14 +245,85 @@ class Combat extends CI_Controller {
  			else {
  				$this->battle_model->updateU2($battle->id, $x1, $y1, $x2, $y2, $angle, $shot, $hit);
  			}
+ 			
+ 			if ($this->db->trans_status() === FALSE) {
+ 				$errormsg = "Transaction error";
+ 				goto transactionerror;
+ 			}
+ 			
+ 			// if all went well commit changes
+ 			$this->db->trans_commit();
  				
  			echo json_encode(array('status'=>'success'));
  				
  			return;
+ 		
+ 			transactionerror:
+ 			$this->db->trans_rollback();
  			
  		error:
  		echo json_encode(array('status'=>'failure','message'=>$errormsg));
  	}
  	
+ 	function endPhase(){
+ 		$this->load->model('user_model');
+ 		$this->load->model('battle_model');
+ 			
+ 		$user = $_SESSION['user'];
+ 		
+ 		$user = $this->user_model->getExclusive($user->login);
+ 		if ($user->user_status_id != User::BATTLING) {
+ 			$errormsg="Not in BATTLING state";
+ 			goto error;
+		}
+ 		
+ 		// start transactional mode
+ 		$this->db->trans_begin();
+ 	
+ 		$user = $this->user_model->getExclusive($user->login);
+ 		 			
+ 		$battle = $this->battle_model->get($user->battle_id);
+ 			
+ 		$status = $this->input->post('winner');
+ 		
+ 		// Set status of battle
+ 		if ($battle->user1_id == $user->id)  {
+ 			if ($status == "draw"){
+ 				$this->battle_model->updateStatus($battle->id, Battle::DRAW);
+ 			} 
+ 			else if ($status == "player_won"){
+ 				$this->battle_model->updateStatus($battle->id, Battle::U1WON);
+ 			}
+ 			else {
+ 				$this->battle_model->updateStatus($battle->id, Battle::U2WON);
+ 			}		
+ 		}
+ 		
+ 		if ($user->user_status_id == User::BATTLING) {
+ 			$this->user_model->updateStatus($user->id,User::AVAILABLE);
+ 		}
+ 		
+ 		if ($this->db->trans_status() === FALSE) {
+ 			$errormsg = "Transaction error";
+ 			goto transactionerror;
+ 		}
+ 		
+ 		// if all went well commit changes
+ 		$this->db->trans_commit();
+ 	 		
+ 		echo json_encode(array('status'=>'success'));
+ 		
+ 		redirect('arcade/index', 'refresh'); //redirect back to arcade
+ 		return;
+ 		
+ 		transactionerror:
+ 		$this->db->trans_rollback();
+ 			
+ 		error:
+ 		echo json_encode(array('status'=>'failure','message'=>$errormsg));
+ 	}
+ 		 	
  }
+ 
+
 
