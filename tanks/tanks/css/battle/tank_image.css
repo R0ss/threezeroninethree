@@ -1,11 +1,32 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
 div#battlefield {
-	width: 800px;
+	width: 1000px;
 	height: 800px;
-	border:8px solid green;
+}
+
+div#player1_box{
+
+		float: left;
+		width: 480px;
+	height: 800px;
+	border:8px solid silver;
+}
+
+div#player2_box{
+		float: right;
+		width: 480px;
+	height: 800px;
+	border:8px solid silver;
 }
 
 div#player1 {
     position: absolute;
+    top: 10px;
+	left: 10px;
 	border:2px solid black;
 	border-radius:25px;
 	background: blue;
@@ -39,8 +60,8 @@ div#player1_laser {
 
 div#player2 {
     position: absolute;
-    top: 600px;
-	left: 600px;
+    top: 720px;
+	left: 910px;
 	border:2px solid black;
 	border-radius:25px;
 	background: red;

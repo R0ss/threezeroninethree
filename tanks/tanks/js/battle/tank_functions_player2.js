@@ -1,5 +1,5 @@
-	var tank_x = 600; //tank x coordinates
-	var tank_y = 600; // tank y coordinates
+	var tank_x = 910; //tank x coordinates
+	var tank_y = 720; // tank y coordinates
 	var mouse_x; //mouse x coordinates
 	var mouse_y; //mouse y coordinates
 	var target_x, target_y; // Cannon target
@@ -25,13 +25,7 @@
 		tank_y = $( "#player2" ).position().top + 37; // tank y coordinates
 		time_out = setTimeout(turret_direction, 200); // repeat myself
 	}
-	
-	$(document).mousemove(function(event){
-	    mouse_x = event.pageX;
-		mouse_y = event.pageY;
-		update_turret();
-	});
-	
+		
 	function update_turret(){
 		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
 		var deltaX = (mouse_y - tank_y);
@@ -55,45 +49,52 @@
 				fire_cannon = 1;
 				target_x = mouse_x;
 				target_y = mouse_y;
-				$("#player2_laser").offset({left: tank_x, top: tank_y - 33}).fadeIn(300)
-				  .css("display", "block").animate({top: mouse_y, left: mouse_x}, 900);
+				$("#player2_laser")
+				  .offset({left: tank_x, top: tank_y - 37})
+				  .fadeIn(300)
+				  .css("display", "block")
+				  .animate({top: mouse_y, left: mouse_x}, 900);
 			}
-		});
-	});
-	
-	//tank movement
-      $(function(){
-        $(document).keydown( function( event ){
-          var keyCode = event.keyCode || event.which;
-          var keyMap = { left: 65, up: 87, right: 68, down: 83}
-          switch ( keyCode ) {
-            case keyMap.left:
-              $( "#player2" ).stop().animate({
-                left: '-=40'
-              }, 100 );
-              update_turret();
-              break;
-			
-			case keyMap.right:
-              $( "#player2" ).stop().animate({
-                left: '+=40'
-              }, 100 );
-              update_turret();
-              break;
- 
-            case keyMap.up:
-              $( "#player2" ).stop().animate({
-                top: '-=40'
-              }, 100 );
-              update_turret();
-              break;
-			
-			case keyMap.down:
-              $( "#player2" ).stop().animate({
-                top: '+=40'
-              }, 100 );
-              update_turret();
-              break;
-			}
-		});
+			//tank movement
+		}).keydown( function( event ){
+	          var keyCode = event.keyCode || event.which;
+	          var keyMap = { left: 65, up: 87, right: 68, down: 83}
+	          switch ( keyCode ) {
+	            case keyMap.left:
+	              $( "#player2" ).stop().animate({
+	                left: '-=40'
+	              }, 100 );
+	              update_turret();
+	              if (tank_x < 500){
+	            	  tank_x += 500;
+	              }
+	              break;
+
+				
+				case keyMap.right:
+	              $( "#player2" ).stop().animate({
+	                left: '+=40'
+	              }, 100 );
+	              update_turret();
+	              break;
+	 
+	            case keyMap.up:
+	              $( "#player2" ).stop().animate({
+	                top: '-=40'
+	              }, 100 );
+	              update_turret();
+	              break;
+				
+				case keyMap.down:
+	              $( "#player2" ).stop().animate({
+	                top: '+=40'
+	              }, 100 );
+	              update_turret();
+	              break;
+				}
+			}).mousemove(function(event){
+			    mouse_x = event.pageX;
+				mouse_y = event.pageY;
+				update_turret();
+			});
 	});
