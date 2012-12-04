@@ -12,50 +12,45 @@
 		var otherUser = "<?= $otherUser->login ?>";
 		var user = "<?= $user->login ?>";
 		var status = "<?= $status ?>";
+		var enemy_pause = setTimeout(update_enemy, 500);
+		var invitation_pause = setTimeout(invitation_check,2000);
 		
-		$(function(){
-			$('body').everyTime(1000,function(){ //call getIntel function
-				var url_get = "<?= base_url() ?>combat/getIntel";
-				$.getJSON(url_get, function (data){
-					if (data && data.status =='success') { //access variables using dot notation
-						// change turret position to turret_degree
-						$("#<?php echo $enemy ?>_turret") // change turret position to turret_degree
-							.css({
-								"-moz-transform" : "rotate(" + data.enemy_angle + "deg)"
-							});
-						$("#<?php echo $enemy ?>") // change tanks position
-						.animate({
-							top : data.enemy_y1,
-							left : data.enemy_x1
-						}, 1000);
-						$("#test").html("Opponent variables: " +
-								'enemy_x1: ' + data.enemy_x1 + " , " +
-								'enemy_y1: ' + data.enemy_y1 + " , " +
-								'mouse_x2: ' + data.enemy_x2 + " , " +
-								'mouse_y2: ' + data.enemy_y2 + " , " +
-								'enemy_angle: ' + data.enemy_angle + " , " +
-								'enemy_shot: ' + data.enemy_shot + " ," +
-								'enemy_hit: ' + data.enemy_hit + " ,");
-					}
-				});
-				
-				var arguments = {};
-				arguments['x1'] = tank_x;
-				arguments['y1'] = tank_y;
-				arguments['x2'] = mouse_x; // we might consider using cannon angles to fire
-				arguments['y2'] = mouse_y;
-				arguments['angle'] = turret_degree;
-				arguments['shot'] = fire_cannon;
-				arguments['hit'] = tank_hit;
-				var url_post = "<?= base_url() ?>combat/postIntel";
-				$.ajax({ // Nothing else needs to be done, other than posting the data
-					  url: url_post,
-					  data: arguments,
-					  type: 'post',
-					});	
+		function update_enemy() { //call getIntel function
+			var url_get = "<?= base_url() ?>combat/getIntel";
+			$.getJSON(url_get, function (data,jqXHR){
+				if (data && data.status =='success') { //access variables using dot notation
+					// change turret position to turret_degree
+					$("#<?php echo $enemy ?>_turret") // change turret position to turret_degree
+						.css({
+							"-moz-transform" : "rotate(" + data.enemy_angle + "deg)"
+						});
+					$("#<?php echo $enemy ?>") // change tanks position
+					.animate({
+						top : data.enemy_y1,
+						left : data.enemy_x1
+					}, 0);
+				}
 			});
 			
-			$('body').everyTime(2000,function(){
+			var url_post = "<?= base_url() ?>combat/postIntel";
+			$.ajax({ // Nothing else needs to be done, other than posting the data
+				  url: url_post,
+				  data:
+					{ 
+					  'x1': (tank_x - 36),
+					  'y1': (tank_y - 36),
+				      'x2': mouse_x,
+				      'y2': mouse_y,
+				      'angle': turret_degree,
+				      'shot': fire_cannon,
+				      'hit': tank_hit
+				    },
+				  type: 'post',
+				});
+			enemy_pause = setTimeout(update_enemy, 500);	
+		}
+			
+			function invitation_check() {
 					if (status == 'waiting') {
 						$.getJSON('<?= base_url() ?>arcade/checkInvitation',function(data, text, jqZHR){
 								if (data && data.status=='rejected') {
@@ -69,28 +64,8 @@
 								
 						});
 					}
-					var url = "<?= base_url() ?>combat/getMsg";
-					$.getJSON(url, function (data,text,jqXHR){
-						if (data && data.status=='success') {
-							var conversation = $('[name=conversation]').val();
-							var msg = data.message;
-							if (msg.length > 0)
-								$('[name=conversation]').val(conversation + "\n" + otherUser + ": " + msg);
-						}
-					});
-			});
-
-			$('form').submit(function(){
-				var arguments = $(this).serialize();
-				var url = "<?= base_url() ?>combat/postMsg";
-				$.post(url,arguments, function (data,textStatus,jqXHR){
-						var conversation = $('[name=conversation]').val();
-						var msg = $('[name=msg]').val();
-						$('[name=conversation]').val(conversation + "\n" + user + ": " + msg);
-						});
-				return false;
-				});	
-		});
+					invitation_pause = setTimeout(invitation_check, 2000);
+			}
 	
 	</script>
 	</head> 
@@ -127,21 +102,7 @@
 		else
 			echo "Wating on " . $otherUser->login;
 	?>
-	</div>
-	<div id="chatbox">
-        <?php 
-	
-	        echo form_textarea('conversation');
-	
-	        echo form_open();
-	        echo form_input('msg');
-	        echo form_submit('Send','Send');
-	        echo form_close();
-	
-        ?>
-	</div>
-	
-	
+	</div>	
 	
 </body>
 

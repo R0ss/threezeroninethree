@@ -32,24 +32,28 @@ class Combat extends CI_Controller {
 	    	if ($user->user_status_id == User::WAITING) {
 	    		$invite = $this->invite_model->get($user->invite_id);
 	    		$otherUser = $this->user_model->getFromId($invite->user2_id);
+	    		$data['player'] = "player2";
+	    		$data['enemy'] = "player1";
+	    		$data['user']=$user;
+	    		$data['otherUser']=$otherUser;
 	    	}
 	    	else if ($user->user_status_id == User::BATTLING) {
 	    		$battle = $this->battle_model->get($user->battle_id);
 	    		if ($battle->user1_id == $user->id){
 	    			$otherUser = $this->user_model->getFromId($battle->user2_id);
-	    			$data['player'] = "player1";
+	    			$data['player'] = "player1"; //
 	    			$data['enemy'] = "player2";
+	    			$data['user']=$user;
+	    			$data['otherUser']=$otherUser;
 	    		} else {
 	    			$otherUser = $this->user_model->getFromId($battle->user1_id);
 	    			$data['player'] = "player2";
 	    			$data['enemy'] = "player1";
+	    			$data['user']=$user;
+	    			$data['otherUser']=$otherUser;
 	    		}
 	    			
 	    	}
-	    	
-	    	$data['user']=$user;
-	    	$data['otherUser']=$otherUser;
-	    	
 	    	switch($user->user_status_id) {
 	    		case User::BATTLING:	
 	    			$data['status'] = 'battling';

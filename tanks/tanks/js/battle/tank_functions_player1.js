@@ -1,3 +1,4 @@
+	//New one
 	var tank_x = 0; //tank x coordinates
 	var tank_y = 0; // tank y coordinates
 	var mouse_x; //mouse x coordinates
