@@ -1,5 +1,5 @@
-	var tank_x = 0; //tank x coordinates
-	var tank_y = 0; // tank y coordinates
+	var tank_x = 10; //tank x coordinates
+	var tank_y = 10; // tank y coordinates
 	var mouse_x; //mouse x coordinates
 	var mouse_y; //mouse y coordinates
 	var time_out = setTimeout(turret_direction, 200); //begin updating current turret location

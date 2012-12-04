@@ -1,5 +1,5 @@
-	var tank_x = 600; //tank x coordinates
-	var tank_y = 600; // tank y coordinates
+	var tank_x = 910; //tank x coordinates
+	var tank_y = 720; // tank y coordinates
 	var mouse_x; //mouse x coordinates
 	var mouse_y; //mouse y coordinates
 	var time_out = setTimeout(turret_direction, 200); //begin updating current turret location
@@ -62,7 +62,11 @@
 	                left: '-=40'
 	              }, 100 );
 	              update_turret();
+	              if (tank_x < 500){
+	            	  tank_x += 500;
+	              }
 	              break;
+
 				
 				case keyMap.right:
 	              $( "#player2" ).stop().animate({

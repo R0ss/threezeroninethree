@@ -85,8 +85,12 @@
 			    <div id="player2_cannon"></div>
 		    </div>
 	    </div>
+
+ 	    <div id="player1_box"></div>
+	    <div id="player2_box"></div>
 	    <div id="player1_laser"></div>
 	    <div id="player2_laser"></div>
+	   
 	</div>
 	<p id="test"></p>
 	<h1>Battle Field</h1>
