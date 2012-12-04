@@ -1,4 +1,3 @@
-	//New one
 	var tank_x = 0; //tank x coordinates
 	var tank_y = 0; // tank y coordinates
 	var mouse_x; //mouse x coordinates
@@ -14,12 +13,7 @@
 
 		tank_hit = true;		
 	}
-	
-	//current tank position
-	function tank_pos(){
 		
-	}
-	
 	// update the turret position
 	function turret_direction() {
 		
@@ -27,8 +21,8 @@
 			.css({
 				"-moz-transform" : "rotate(" + turret_degree + "deg)"
 				});
-		tank_x = $( "#player1" ).position().left + 45; //tank x coordinates
-		tank_y = $( "#player1" ).position().top + 75; // tank y coordinates
+		tank_x = $( "#player1" ).position().left + 37; //tank x coordinates
+		tank_y = $( "#player1" ).position().top + 37; // tank y coordinates
 		time_out = setTimeout(turret_direction, 200); // repeat myself
 	}
 	
@@ -46,6 +40,10 @@
 	$(document).mousemove( function(event){
 	    mouse_x = event.pageX;
 		mouse_y = event.pageY;
+		update_turret();
+	});
+	
+	function update_turret(){
 		var deltaY = (mouse_x - tank_x); //adjust origin of compass to match turret
 		var deltaX = (mouse_y - tank_y);
 		player1_angle = (-1 * (Math.round(Math.atan2(deltaY, deltaX)*180/Math.PI)) + 360) % 360; //*-1
@@ -59,7 +57,8 @@
 				turret_degree = (turret_degree - 1) % 360; //rotate counter clockwise
 			}
 		}
-	});
+		
+	}
 	
 	//tank movement
       $(function(){
@@ -71,24 +70,28 @@
               $( "#player1" ).stop().animate({
                 left: '-=40'
               }, 100 );
+              update_turret();
               break;
 			
 			case keyMap.right:
               $( "#player1" ).stop().animate({
                 left: '+=40'
               }, 100 );
+              update_turret();
               break;
  
             case keyMap.up:
               $( "#player1" ).stop().animate({
                 top: '-=40'
               }, 100 );
+              update_turret();
               break;
 			
 			case keyMap.down:
               $( "#player1" ).stop().animate({
                 top: '+=40'
               }, 100 );
+              update_turret();
               break;
 			}
 		});

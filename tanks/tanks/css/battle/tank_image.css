@@ -39,6 +39,8 @@ div#player1_laser {
 
 div#player2 {
     position: absolute;
+    top: 600px;
+	left: 600px;
 	border:2px solid black;
 	border-radius:25px;
 	background: red;
