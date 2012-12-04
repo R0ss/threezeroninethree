@@ -71,13 +71,14 @@
 				    },
 				  type: 'post',
 				});
-			
-			enemy_pause = setTimeout(update_enemy, 500);
+
+
 			if(tank_hit == true){
 				player_lost = true;
 			     $("#<?php echo $player?>").hide("explode", 1000);
 			     
 				}
+			enemy_pause = setTimeout(update_enemy, 500);
 			// Determine which player won
 			if(player_lost && enemy_lost){
 				end_game("draw");
