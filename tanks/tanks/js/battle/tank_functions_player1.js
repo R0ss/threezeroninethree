@@ -59,31 +59,64 @@
 	          var keyMap = { left: 65, up: 87, right: 68, down: 83}
 	          switch ( keyCode ) {
 	            case keyMap.left:
-	              $( "#player1" ).stop().animate({
-	                left: '-=40'
-	              }, 100 );
-	              update_turret();
+	            	if(tank_x < 500){
+		              $( "#player1" ).stop().animate({
+		                left: '+=500'
+		              }, 100 );
+		              tank_x +=500;
+		              update_turret();
+	            	}else{
+	            	$( "#player1" ).stop().animate({
+    	                left: '-=40'
+    	              }, 100 );
+    	              update_turret();
+	            	}
 	              break;
+
 				
 				case keyMap.right:
-	              $( "#player1" ).stop().animate({
-	                left: '+=40'
-	              }, 100 );
-	              update_turret();
+	            	if(tank_x > 500){
+			              $( "#player1" ).stop().animate({
+			                left: '-=500'
+			              }, 100 );
+			              tank_x -=500;
+			              update_turret();
+		            	}else{
+		            	$( "#player1" ).stop().animate({
+	    	                left: '+=40'
+	    	              }, 100 );
+	    	              update_turret();
+		            	}
 	              break;
 	 
 	            case keyMap.up:
-	              $( "#player1" ).stop().animate({
-	                top: '-=40'
-	              }, 100 );
-	              update_turret();
+	            	if(tank_y < 10){
+			              $( "#player1" ).stop().animate({
+			                top: '+=500'
+			              }, 100 );
+			              tank_y +=500;
+			              update_turret();
+		            	}else{
+		            	$( "#player1" ).stop().animate({
+	    	                top: '-=40'
+	    	              }, 100 );
+	    	              update_turret();
+		            	}
 	              break;
 				
 				case keyMap.down:
-	              $( "#player1" ).stop().animate({
-	                top: '+=40'
-	              }, 100 );
-	              update_turret();
+	            	if(tank_y > 800){
+			              $( "#player1" ).stop().animate({
+			                top: '-=500'
+			              }, 100 );
+			              tank_y -=500;
+			              update_turret();
+		            	}else{
+		            	$( "#player1" ).stop().animate({
+	    	                top: '+=40'
+	    	              }, 100 );
+	    	              update_turret();
+		            	}
 	              break;
 				}
 			}).mousemove(function(event){
