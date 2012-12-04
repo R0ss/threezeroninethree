@@ -37,9 +37,8 @@
 			
 			if(player1_angle == turret_degree){ //only fire when cannon is in position
 				fire_cannon = true;
-				$("#player1_laser").offset({left: tank_x, top: tank_y - 33});
-				$("#player1_laser").fadeIn(300);
-				$("#player1_laser").css("display", "block").animate({top: mouse_y, left: mouse_x}, 900);
+				$("#player1_laser").offset({left: tank_x, top: tank_y - 33}).fadeIn(300)
+				  .css("display", "block").animate({top: mouse_y, left: mouse_x}, 900);
 			}
 		});
 	});
